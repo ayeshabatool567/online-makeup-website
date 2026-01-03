@@ -1,13 +1,40 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { Helmet } from "react-helmet-async";
+import Navbar from "@/components/Navbar";
+import HeroSection from "@/components/HeroSection";
+import CategoriesSection from "@/components/CategoriesSection";
+import AboutSection from "@/components/AboutSection";
+import ServicesSection from "@/components/ServicesSection";
+import ContactSection from "@/components/ContactSection";
+import Footer from "@/components/Footer";
 
 const Index = () => {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
+    <>
+      <Helmet>
+        <title>Rosé Beauty | Luxury Cruelty-Free Makeup & Skincare</title>
+        <meta
+          name="description"
+          content="Discover luxurious, cruelty-free makeup and skincare at Rosé Beauty. Shop premium lipsticks, eyeshadows, foundations, and more. Free shipping on orders over $50."
+        />
+        <meta
+          name="keywords"
+          content="makeup, cosmetics, beauty, skincare, cruelty-free, lipstick, eyeshadow, foundation"
+        />
+        <link rel="canonical" href="https://rosebeauty.com" />
+      </Helmet>
+
+      <div className="min-h-screen bg-background">
+        <Navbar />
+        <main>
+          <HeroSection />
+          <CategoriesSection />
+          <AboutSection />
+          <ServicesSection />
+          <ContactSection />
+        </main>
+        <Footer />
       </div>
-    </div>
+    </>
   );
 };
 
