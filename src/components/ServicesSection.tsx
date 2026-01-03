@@ -1,77 +1,60 @@
-import { Palette, Gift, Sparkles, Users } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import serviceConsultation from "@/assets/service-consultation.jpg";
+import serviceMakeup from "@/assets/service-makeup.jpg";
+import serviceWorkshop from "@/assets/service-workshop.jpg";
 
 const services = [
   {
-    icon: Palette,
-    title: "Virtual Try-On",
-    description:
-      "Experience our products virtually with our AR-powered try-on feature. See how each shade looks on you before you buy.",
-    cta: "Try Now",
+    image: serviceConsultation,
+    title: "Skincare Consultation",
+    description: "Expert skincare advice tailored to your unique needs",
   },
   {
-    icon: Gift,
-    title: "Gift Sets",
-    description:
-      "Curated luxury gift sets for every occasion. Beautifully packaged and ready to delight your loved ones.",
-    cta: "Shop Gifts",
+    image: serviceMakeup,
+    title: "Makeup Application",
+    description: "Professional makeup for any occasion",
   },
   {
-    icon: Sparkles,
-    title: "Beauty Rewards",
-    description:
-      "Join our loyalty program and earn points on every purchase. Unlock exclusive perks, early access, and special discounts.",
-    cta: "Join Free",
-  },
-  {
-    icon: Users,
-    title: "Expert Consultations",
-    description:
-      "Book a one-on-one session with our beauty experts. Get personalized recommendations tailored to your unique needs.",
-    cta: "Book Now",
+    image: serviceWorkshop,
+    title: "Beauty Workshops",
+    description: "Learn techniques from our beauty experts",
   },
 ];
 
 const ServicesSection = () => {
   return (
-    <section id="services" className="py-20 lg:py-32 bg-background">
+    <section id="services" className="py-20 lg:py-32">
       <div className="container mx-auto px-4 lg:px-8">
-        {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-16">
-          <span className="text-primary text-sm font-medium uppercase tracking-wider">
+        {/* Header */}
+        <div className="text-center mb-16">
+          <h2 className="font-display text-3xl lg:text-5xl font-bold text-foreground">
             Our Services
-          </span>
-          <h2 className="font-display text-3xl lg:text-5xl font-semibold mt-3 mb-4">
-            Elevate Your Experience
           </h2>
-          <p className="text-muted-foreground">
-            Beyond products, we offer personalized services to make your beauty
-            journey exceptional.
+          <p className="text-muted-foreground mt-4 max-w-xl mx-auto">
+            Professional beauty services tailored for you
           </p>
         </div>
 
         {/* Services Grid */}
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="grid md:grid-cols-3 gap-8">
           {services.map((service, index) => (
             <div
-              key={service.title}
-              className={`group p-8 lg:p-10 rounded-2xl border border-border/50 bg-gradient-card hover-lift ${
-                index % 2 === 0 ? "md:translate-y-8" : ""
-              }`}
+              key={index}
+              className="group bg-card rounded-2xl overflow-hidden shadow-card hover-lift"
             >
-              <div className="flex flex-col h-full">
-                <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mb-6 transition-colors group-hover:bg-primary">
-                  <service.icon className="h-7 w-7 text-primary transition-colors group-hover:text-primary-foreground" />
-                </div>
-                <h3 className="font-display text-xl lg:text-2xl font-semibold mb-3">
+              <div className="aspect-[4/3] overflow-hidden">
+                <img
+                  src={service.image}
+                  alt={service.title}
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                />
+              </div>
+              <div className="p-6 text-center">
+                <h3 className="font-display text-xl font-semibold text-foreground mb-2">
                   {service.title}
                 </h3>
-                <p className="text-muted-foreground flex-grow mb-6">
+                <p className="text-muted-foreground text-sm">
                   {service.description}
                 </p>
-                <Button variant="outline" className="w-fit">
-                  {service.cta}
-                </Button>
               </div>
             </div>
           ))}
