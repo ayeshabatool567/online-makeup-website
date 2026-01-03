@@ -1,84 +1,116 @@
+import { useState, useEffect, useCallback } from "react";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Sparkles } from "lucide-react";
-import heroImage from "@/assets/hero-makeup.jpg";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import heroSlide1 from "@/assets/hero-slide-1.jpg";
+import heroSlide2 from "@/assets/hero-slide-2.jpg";
+import heroSlide3 from "@/assets/hero-slide-3.jpg";
+
+const slides = [
+  {
+    image: heroSlide1,
+    title: "Skincare That Cares",
+    emoji: "🌸",
+    subtitle: "Nourish your skin with our luxurious skincare essentials",
+  },
+  {
+    image: heroSlide2,
+    title: "Beauty Redefined",
+    emoji: "✨",
+    subtitle: "Discover makeup that enhances your natural glow",
+  },
+  {
+    image: heroSlide3,
+    title: "Luxury Collection",
+    emoji: "💕",
+    subtitle: "Premium products crafted for every beauty moment",
+  },
+];
 
 const HeroSection = () => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const nextSlide = useCallback(() => {
+    setCurrentSlide((prev) => (prev + 1) % slides.length);
+  }, []);
+
+  const prevSlide = useCallback(() => {
+    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(nextSlide, 5000);
+    return () => clearInterval(interval);
+  }, [nextSlide]);
+
   return (
-    <section
-      id="home"
-      className="relative min-h-screen flex items-center pt-20 overflow-hidden"
-    >
-      {/* Background Image with Overlay */}
-      <div className="absolute inset-0 z-0">
-        <img
-          src={heroImage}
-          alt="Luxury makeup collection"
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/80 to-background/40" />
-      </div>
+    <section id="home" className="relative min-h-screen flex items-center pt-20 overflow-hidden">
+      {/* Background Slides */}
+      {slides.map((slide, index) => (
+        <div
+          key={index}
+          className={`absolute inset-0 z-0 transition-opacity duration-700 ${
+            index === currentSlide ? "opacity-100" : "opacity-0"
+          }`}
+        >
+          <img
+            src={slide.image}
+            alt={slide.title}
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-background/60" />
+        </div>
+      ))}
 
       {/* Content */}
-      <div className="container mx-auto px-4 lg:px-8 relative z-10">
-        <div className="max-w-2xl">
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/80 backdrop-blur-sm text-secondary-foreground text-sm font-medium mb-6 animate-fade-up">
-            <Sparkles className="h-4 w-4 text-primary" />
-            <span>New Collection 2025</span>
-          </div>
-
+      <div className="container mx-auto px-4 lg:px-8 relative z-10 text-center">
+        <div className="max-w-3xl mx-auto">
           {/* Heading */}
-          <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-semibold leading-[1.1] mb-6 animate-fade-up animation-delay-100">
-            Discover Your
-            <br />
-            <span className="text-primary">Perfect Glow</span>
+          <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold leading-[1.1] mb-6 text-foreground">
+            {slides[currentSlide].title}{" "}
+            <span className="text-4xl sm:text-5xl lg:text-6xl">{slides[currentSlide].emoji}</span>
           </h1>
 
           {/* Subheading */}
-          <p className="text-lg lg:text-xl text-muted-foreground max-w-lg mb-8 animate-fade-up animation-delay-200">
-            Elevate your beauty routine with our luxurious collection of
-            cruelty-free, high-performance makeup crafted for every skin tone.
+          <p className="text-lg lg:text-xl text-muted-foreground max-w-xl mx-auto mb-10">
+            {slides[currentSlide].subtitle}
           </p>
 
-          {/* CTA Buttons */}
-          <div className="flex flex-wrap gap-4 animate-fade-up animation-delay-300">
-            <Button variant="hero" size="xl">
-              Shop Now
-              <ArrowRight className="h-5 w-5 ml-2" />
-            </Button>
-            <Button variant="hero-outline" size="xl">
-              Explore Collection
-            </Button>
-          </div>
-
-          {/* Stats */}
-          <div className="flex gap-8 mt-12 animate-fade-up animation-delay-400">
-            <div>
-              <p className="font-display text-3xl font-semibold text-foreground">
-                500+
-              </p>
-              <p className="text-sm text-muted-foreground">Products</p>
-            </div>
-            <div className="w-px bg-border" />
-            <div>
-              <p className="font-display text-3xl font-semibold text-foreground">
-                50K+
-              </p>
-              <p className="text-sm text-muted-foreground">Happy Customers</p>
-            </div>
-            <div className="w-px bg-border" />
-            <div>
-              <p className="font-display text-3xl font-semibold text-foreground">
-                100%
-              </p>
-              <p className="text-sm text-muted-foreground">Cruelty-Free</p>
-            </div>
-          </div>
+          {/* CTA Button */}
+          <Button variant="hero" size="xl" className="px-10">
+            Shop Now
+          </Button>
         </div>
       </div>
 
-      {/* Decorative Elements */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent z-10" />
+      {/* Navigation Arrows */}
+      <button
+        onClick={prevSlide}
+        className="absolute left-4 lg:left-8 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center text-foreground hover:bg-background transition-colors"
+        aria-label="Previous slide"
+      >
+        <ChevronLeft className="h-6 w-6" />
+      </button>
+      <button
+        onClick={nextSlide}
+        className="absolute right-4 lg:right-8 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center text-foreground hover:bg-background transition-colors"
+        aria-label="Next slide"
+      >
+        <ChevronRight className="h-6 w-6" />
+      </button>
+
+      {/* Slide Indicators */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+        {slides.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => setCurrentSlide(index)}
+            className={`w-3 h-3 rounded-full transition-colors ${
+              index === currentSlide ? "bg-primary" : "bg-foreground/30"
+            }`}
+            aria-label={`Go to slide ${index + 1}`}
+          />
+        ))}
+      </div>
     </section>
   );
 };

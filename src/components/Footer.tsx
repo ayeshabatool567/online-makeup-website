@@ -1,52 +1,43 @@
-import { Instagram, Twitter, Facebook, Youtube, ArrowUp } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Instagram, Facebook, Twitter, Youtube } from "lucide-react";
 
 const Footer = () => {
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-
   const footerLinks = {
-    shop: [
-      { name: "Lips", href: "#" },
-      { name: "Eyes", href: "#" },
-      { name: "Face", href: "#" },
-      { name: "Tools", href: "#" },
-      { name: "Skincare", href: "#" },
+    quickLinks: [
+      { name: "Home", href: "#home" },
+      { name: "Services", href: "#services" },
+      { name: "Products", href: "#products" },
+      { name: "About", href: "#about" },
     ],
-    company: [
-      { name: "About Us", href: "#about" },
-      { name: "Careers", href: "#" },
-      { name: "Press", href: "#" },
-      { name: "Sustainability", href: "#" },
+    services: [
+      { name: "Skincare Consultation", href: "#services" },
+      { name: "Makeup Application", href: "#services" },
+      { name: "Beauty Workshops", href: "#services" },
     ],
-    support: [
-      { name: "Contact", href: "#contact" },
-      { name: "FAQs", href: "#" },
-      { name: "Shipping", href: "#" },
-      { name: "Returns", href: "#" },
+    contact: [
+      { label: "Email", value: "hello@glowing.com" },
+      { label: "Phone", value: "(555) 123-4567" },
+      { label: "Address", value: "123 Beauty St, Glow City" },
     ],
   };
 
   const socialLinks = [
     { icon: Instagram, href: "#", label: "Instagram" },
-    { icon: Twitter, href: "#", label: "Twitter" },
     { icon: Facebook, href: "#", label: "Facebook" },
+    { icon: Twitter, href: "#", label: "Twitter" },
     { icon: Youtube, href: "#", label: "YouTube" },
   ];
 
   return (
-    <footer className="bg-foreground text-background">
-      <div className="container mx-auto px-4 lg:px-8 py-16 lg:py-20">
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 lg:gap-12">
+    <footer className="bg-[hsl(220,30%,15%)] text-white">
+      <div className="container mx-auto px-4 lg:px-8 py-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12">
           {/* Brand */}
-          <div className="col-span-2 lg:col-span-2">
-            <span className="font-display text-2xl lg:text-3xl font-semibold">
-              Rosé<span className="text-primary">Beauty</span>
+          <div>
+            <span className="font-display text-2xl font-bold text-primary">
+              Glowing
             </span>
-            <p className="text-background/60 mt-4 max-w-sm">
-              Elevating beauty with luxurious, cruelty-free makeup that celebrates
-              your unique radiance.
+            <p className="text-white/60 mt-4 text-sm leading-relaxed">
+              Your trusted partner in beauty and skincare excellence.
             </p>
             <div className="flex gap-3 mt-6">
               {socialLinks.map((social) => (
@@ -54,7 +45,7 @@ const Footer = () => {
                   key={social.label}
                   href={social.href}
                   aria-label={social.label}
-                  className="w-10 h-10 rounded-full bg-background/10 flex items-center justify-center hover:bg-primary transition-colors"
+                  className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary transition-colors"
                 >
                   <social.icon className="h-5 w-5" />
                 </a>
@@ -62,15 +53,15 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Shop Links */}
+          {/* Quick Links */}
           <div>
-            <h4 className="font-semibold mb-4">Shop</h4>
+            <h4 className="font-semibold mb-4">Quick Links</h4>
             <ul className="space-y-3">
-              {footerLinks.shop.map((link) => (
+              {footerLinks.quickLinks.map((link) => (
                 <li key={link.name}>
                   <a
                     href={link.href}
-                    className="text-background/60 hover:text-background transition-colors"
+                    className="text-white/60 text-sm hover:text-white transition-colors"
                   >
                     {link.name}
                   </a>
@@ -79,15 +70,15 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Company Links */}
+          {/* Services */}
           <div>
-            <h4 className="font-semibold mb-4">Company</h4>
+            <h4 className="font-semibold mb-4">Services</h4>
             <ul className="space-y-3">
-              {footerLinks.company.map((link) => (
+              {footerLinks.services.map((link) => (
                 <li key={link.name}>
                   <a
                     href={link.href}
-                    className="text-background/60 hover:text-background transition-colors"
+                    className="text-white/60 text-sm hover:text-white transition-colors"
                   >
                     {link.name}
                   </a>
@@ -96,18 +87,14 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Support Links */}
+          {/* Contact */}
           <div>
-            <h4 className="font-semibold mb-4">Support</h4>
+            <h4 className="font-semibold mb-4">Contact</h4>
             <ul className="space-y-3">
-              {footerLinks.support.map((link) => (
-                <li key={link.name}>
-                  <a
-                    href={link.href}
-                    className="text-background/60 hover:text-background transition-colors"
-                  >
-                    {link.name}
-                  </a>
+              {footerLinks.contact.map((item) => (
+                <li key={item.label} className="text-sm">
+                  <span className="text-white/40">{item.label}: </span>
+                  <span className="text-white/60">{item.value}</span>
                 </li>
               ))}
             </ul>
@@ -115,26 +102,10 @@ const Footer = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4 mt-16 pt-8 border-t border-background/10">
-          <p className="text-background/40 text-sm">
-            © 2025 Rosé Beauty. All rights reserved.
+        <div className="mt-12 pt-8 border-t border-white/10 text-center">
+          <p className="text-white/40 text-sm">
+            © 2024 Glowing. All rights reserved.
           </p>
-          <div className="flex items-center gap-6 text-sm text-background/40">
-            <a href="#" className="hover:text-background transition-colors">
-              Privacy Policy
-            </a>
-            <a href="#" className="hover:text-background transition-colors">
-              Terms of Service
-            </a>
-          </div>
-          <Button
-            variant="icon"
-            size="icon"
-            onClick={scrollToTop}
-            className="bg-background/10 hover:bg-primary text-background"
-          >
-            <ArrowUp className="h-5 w-5" />
-          </Button>
         </div>
       </div>
     </footer>
