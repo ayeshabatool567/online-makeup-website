@@ -1,4 +1,5 @@
 import { Instagram, Facebook, Twitter, Youtube } from "lucide-react";
+import logo from "@/assets/logo.png";
 
 const Footer = () => {
   const footerLinks = {
@@ -33,9 +34,12 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12">
           {/* Brand */}
           <div>
-            <span className="font-display text-2xl font-bold text-primary">
-              Glowing
-            </span>
+            <a href="#home" className="flex items-center gap-2">
+              <img src={logo} alt="Glowing Logo" className="h-8 w-auto" />
+              <span className="font-display text-2xl font-bold text-primary">
+                Glowing
+              </span>
+            </a>
             <p className="text-white/60 mt-4 text-sm leading-relaxed">
               Your trusted partner in beauty and skincare excellence.
             </p>
