@@ -13,6 +13,7 @@ interface NavbarProps {
   onRemoveFromCart: (id: string) => void;
   onRemoveFavorite: (id: string) => void;
   onAddToCart: (product: { id: string; name: string; price: number; image: string }) => void;
+  onAddToFavorites: (product: { id: string; name: string; price: number; image: string }) => void;
 }
 
 const Navbar = ({
@@ -22,6 +23,7 @@ const Navbar = ({
   onRemoveFromCart,
   onRemoveFavorite,
   onAddToCart,
+  onAddToFavorites,
 }: NavbarProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -189,7 +191,12 @@ const Navbar = ({
       </nav>
 
       {/* Modals & Drawers */}
-      <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
+      <SearchModal 
+        isOpen={isSearchOpen} 
+        onClose={() => setIsSearchOpen(false)}
+        onAddToCart={onAddToCart}
+        onAddToFavorites={onAddToFavorites}
+      />
       <FavoritesDrawer
         isOpen={isFavoritesOpen}
         onClose={() => setIsFavoritesOpen(false)}

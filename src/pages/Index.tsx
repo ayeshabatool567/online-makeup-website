@@ -101,6 +101,7 @@ const Index = () => {
           onRemoveFromCart={handleRemoveFromCart}
           onRemoveFavorite={handleRemoveFavorite}
           onAddToCart={handleAddToCart}
+          onAddToFavorites={handleAddToFavorites}
         />
         <main>
           <HeroSection />
