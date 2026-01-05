@@ -1,57 +1,7 @@
 import { useState } from "react";
 import { Heart, ShoppingBag } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import categoryLips from "@/assets/category-lips.jpg";
-import categoryEyes from "@/assets/category-eyes.jpg";
-import categoryFace from "@/assets/category-face.jpg";
-import categorySkincare from "@/assets/category-skincare.jpg";
-
-const categories = ["All Products", "Lipsticks", "Foundations", "Eyeshadows", "Skincare"];
-
-const products = [
-  {
-    id: "1",
-    name: "Rose Matte Lipstick",
-    category: "Lipsticks",
-    price: 24.99,
-    image: categoryLips,
-  },
-  {
-    id: "2",
-    name: "Rose Gold Gloss",
-    category: "Lipsticks",
-    price: 18.99,
-    image: categoryLips,
-  },
-  {
-    id: "3",
-    name: "Coral Crush Palette",
-    category: "Eyeshadows",
-    price: 45.99,
-    image: categoryEyes,
-  },
-  {
-    id: "4",
-    name: "Berry Bliss Collection",
-    category: "Lipsticks",
-    price: 32.99,
-    image: categoryFace,
-  },
-  {
-    id: "5",
-    name: "Glow Foundation",
-    category: "Foundations",
-    price: 38.99,
-    image: categoryFace,
-  },
-  {
-    id: "6",
-    name: "Hydra Serum",
-    category: "Skincare",
-    price: 55.99,
-    image: categorySkincare,
-  },
-];
+import { products, categories } from "@/data/products";
 
 interface ProductsSectionProps {
   onAddToCart?: (product: { id: string; name: string; price: number; image: string }) => void;
