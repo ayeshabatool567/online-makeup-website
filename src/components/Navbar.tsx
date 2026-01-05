@@ -5,6 +5,7 @@ import SearchModal from "./SearchModal";
 import FavoritesDrawer from "./FavoritesDrawer";
 import CartDrawer, { CartItem } from "./CartDrawer";
 import AuthModal from "./AuthModal";
+import logo from "@/assets/logo.png";
 
 interface NavbarProps {
   cartItems: CartItem[];
@@ -62,6 +63,7 @@ const Navbar = ({
           <div className="flex items-center justify-between h-16 lg:h-20">
             {/* Logo */}
             <a href="#home" className="flex items-center gap-2">
+              <img src={logo} alt="Glowing Logo" className="h-8 lg:h-10 w-auto" />
               <span className="font-display text-2xl lg:text-3xl font-bold tracking-tight text-primary">
                 Glowing
               </span>
