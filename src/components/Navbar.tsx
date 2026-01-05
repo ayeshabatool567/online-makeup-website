@@ -6,15 +6,28 @@ import FavoritesDrawer from "./FavoritesDrawer";
 import CartDrawer, { CartItem } from "./CartDrawer";
 import AuthModal from "./AuthModal";
 
-const Navbar = () => {
+interface NavbarProps {
+  cartItems: CartItem[];
+  favorites: Array<{ id: string; name: string; price: number; image: string }>;
+  onUpdateQuantity: (id: string, quantity: number) => void;
+  onRemoveFromCart: (id: string) => void;
+  onRemoveFavorite: (id: string) => void;
+  onAddToCart: (product: { id: string; name: string; price: number; image: string }) => void;
+}
+
+const Navbar = ({
+  cartItems,
+  favorites,
+  onUpdateQuantity,
+  onRemoveFromCart,
+  onRemoveFavorite,
+  onAddToCart,
+}: NavbarProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isFavoritesOpen, setIsFavoritesOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isAuthOpen, setIsAuthOpen] = useState(false);
-  
-  const [favorites, setFavorites] = useState<Array<{ id: string; name: string; price: number; image: string }>>([]);
-  const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
   const navLinks = [
     { name: "Home", href: "#home" },
@@ -31,41 +44,11 @@ const Navbar = () => {
     setIsMenuOpen(false);
   };
 
-  const handleRemoveFavorite = (id: string) => {
-    setFavorites((prev) => prev.filter((item) => item.id !== id));
-  };
-
   const handleAddToCartFromFavorites = (id: string) => {
     const item = favorites.find((f) => f.id === id);
     if (item) {
-      handleAddToCart(item);
+      onAddToCart(item);
     }
-  };
-
-  const handleAddToCart = (product: { id: string; name: string; price: number; image: string }) => {
-    setCartItems((prev) => {
-      const existing = prev.find((item) => item.id === product.id);
-      if (existing) {
-        return prev.map((item) =>
-          item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
-        );
-      }
-      return [...prev, { ...product, quantity: 1 }];
-    });
-  };
-
-  const handleUpdateQuantity = (id: string, quantity: number) => {
-    if (quantity === 0) {
-      setCartItems((prev) => prev.filter((item) => item.id !== id));
-    } else {
-      setCartItems((prev) =>
-        prev.map((item) => (item.id === id ? { ...item, quantity } : item))
-      );
-    }
-  };
-
-  const handleRemoveFromCart = (id: string) => {
-    setCartItems((prev) => prev.filter((item) => item.id !== id));
   };
 
   const cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
@@ -211,15 +194,15 @@ const Navbar = () => {
         isOpen={isFavoritesOpen}
         onClose={() => setIsFavoritesOpen(false)}
         favorites={favorites}
-        onRemove={handleRemoveFavorite}
+        onRemove={onRemoveFavorite}
         onAddToCart={handleAddToCartFromFavorites}
       />
       <CartDrawer
         isOpen={isCartOpen}
         onClose={() => setIsCartOpen(false)}
         items={cartItems}
-        onUpdateQuantity={handleUpdateQuantity}
-        onRemove={handleRemoveFromCart}
+        onUpdateQuantity={onUpdateQuantity}
+        onRemove={onRemoveFromCart}
       />
       <AuthModal isOpen={isAuthOpen} onClose={() => setIsAuthOpen(false)} />
     </>
