@@ -15,6 +15,7 @@ interface NavbarProps {
   onRemoveFavorite: (id: string) => void;
   onAddToCart: (product: { id: string; name: string; price: number; image: string }) => void;
   onAddToFavorites: (product: { id: string; name: string; price: number; image: string }) => void;
+  onClearCart: () => void;
 }
 
 const Navbar = ({
@@ -25,6 +26,7 @@ const Navbar = ({
   onRemoveFavorite,
   onAddToCart,
   onAddToFavorites,
+  onClearCart,
 }: NavbarProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -212,6 +214,7 @@ const Navbar = ({
         items={cartItems}
         onUpdateQuantity={onUpdateQuantity}
         onRemove={onRemoveFromCart}
+        onClearCart={onClearCart}
       />
       <AuthModal isOpen={isAuthOpen} onClose={() => setIsAuthOpen(false)} />
     </>

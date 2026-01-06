@@ -17,8 +17,32 @@ const AuthModal = ({ isOpen, onClose }: AuthModalProps) => {
   const [name, setName] = useState("");
   const { toast } = useToast();
 
+  const validatePassword = (pwd: string): string | null => {
+    if (pwd.length < 6) {
+      return "Password must be at least 6 characters";
+    }
+    if (!/[a-zA-Z]/.test(pwd)) {
+      return "Password must contain at least one letter";
+    }
+    if (!/[1-9]/.test(pwd)) {
+      return "Password must contain at least one number (1-9)";
+    }
+    return null;
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Validate password
+    const passwordError = validatePassword(password);
+    if (passwordError) {
+      toast({
+        title: "Invalid Password",
+        description: passwordError,
+        variant: "destructive",
+      });
+      return;
+    }
     
     // Simulated auth - replace with real auth later
     toast({
