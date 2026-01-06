@@ -78,6 +78,10 @@ const Index = () => {
     setFavorites((prev) => prev.filter((item) => item.id !== id));
   };
 
+  const handleClearCart = () => {
+    setCartItems([]);
+  };
+
   return (
     <>
       <Helmet>
@@ -102,6 +106,7 @@ const Index = () => {
           onRemoveFavorite={handleRemoveFavorite}
           onAddToCart={handleAddToCart}
           onAddToFavorites={handleAddToFavorites}
+          onClearCart={handleClearCart}
         />
         <main>
           <HeroSection />

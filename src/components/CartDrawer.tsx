@@ -1,6 +1,8 @@
+import { useState } from "react";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { ShoppingBag, Plus, Minus, X } from "lucide-react";
+import CheckoutModal from "./CheckoutModal";
 
 export interface CartItem {
   id: string;
@@ -16,9 +18,11 @@ interface CartDrawerProps {
   items: CartItem[];
   onUpdateQuantity: (id: string, quantity: number) => void;
   onRemove: (id: string) => void;
+  onClearCart?: () => void;
 }
 
-const CartDrawer = ({ isOpen, onClose, items, onUpdateQuantity, onRemove }: CartDrawerProps) => {
+const CartDrawer = ({ isOpen, onClose, items, onUpdateQuantity, onRemove, onClearCart }: CartDrawerProps) => {
+  const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
   const subtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
   const shipping = subtotal > 50 ? 0 : 5.99;
   const total = subtotal + shipping;
@@ -110,11 +114,22 @@ const CartDrawer = ({ isOpen, onClose, items, onUpdateQuantity, onRemove }: Cart
                 <span>${total.toFixed(2)}</span>
               </div>
             </div>
-            <Button variant="hero" className="w-full mt-4">
+            <Button variant="hero" className="w-full mt-4" onClick={() => setIsCheckoutOpen(true)}>
               Checkout
             </Button>
           </div>
         )}
+
+        <CheckoutModal
+          isOpen={isCheckoutOpen}
+          onClose={() => setIsCheckoutOpen(false)}
+          items={items}
+          onOrderComplete={() => {
+            setIsCheckoutOpen(false);
+            onClearCart?.();
+            onClose();
+          }}
+        />
       </SheetContent>
     </Sheet>
   );
